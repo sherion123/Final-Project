@@ -3,12 +3,12 @@ title: 'Philippine Tourism: Improving Plans for Ondoy Family-Bought Land'
 author: "Sheena Ondoy"
 date: "4/24/2022"
 always_allow_html: true
-output: github_document
+output: html_document
   
 ---
 
 ## **Motivation:**  
-My family bought a small beach lot in the Philippines. While it will most likely serve as a family vacation house, my family is thinking of turning it into a small resort/AirBnB business that can serve as passive income when my parents retire (or as long as we're all residing in the USA). By investigating the tourism industry, I hope to inform my family about different services we can offer and designs on the property we're building so that we can attract and retain potential customers
+My family bought a small beach lot in the Philippines. While it will most likely serve as a family vacation house, my family is thinking of turning it into a small resort/AirBnB business that can serve as passive income when my parents retire (or as long as we're all residing in the USA). By investigating the tourism industry, I hope to inform my family about different services we can offer and designs on the property we're building so that we can attract and retain potential customers.
 
 ## **Research Questions:**  
   
