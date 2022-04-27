@@ -1,0 +1,154 @@
+---
+title: 'Philippine Tourism: Improving Plans for Ondoy Family-Bought Land'
+author: "Sheena Ondoy"
+date: "4/24/2022"
+always_allow_html: true
+output: github_document
+  
+---
+
+## **Motivation:**  
+My family bought a small beach lot in the Philippines. While it will most likely serve as a family vacation house, my family is thinking of turning it into a small resort/AirBnB business that can serve as passive income when my parents retire (or as long as we're all residing in the USA). By investigating the tourism industry, I hope to inform my family about different services we can offer and designs on the property we're building so that we can attract and retain potential customers
+
+## **Research Questions:**  
+  
+### 1. Who do we aim to attract?  
+  + **Which country do most tourists come from? (Nationalities of tourists)**
+    + Based on the data below, the top 5 Tourist Nationalities:
+        1. South Korea
+        2. USA
+        3. China
+        4. Japan
+        5. Australia (in the earlier years); Taiwan (in more recent years)
+        
+  + **Is there a trend?**
+    + Since 2011, South Korea has consistently been the top non-resident tourists that visited Philippines
+    + Americans have been the 2^nd^ after South Korea until 2017 when more Chinese tourists have started visiting Philippines more than Americans.
+    + Chinese visitors seem to have surpassed the number of Japanese and American visitors in the recent years.  
+  
+```{r, echo=FALSE, message = FALSE}
+library(plotly)
+library(tidyverse)
+library(readr)
+library(tidyquant)
+
+#Importing data
+Annual_Philippine_Tourism <- read_csv("Annual_Philippine_Tourism2.csv")
+data <- as.data.frame(Annual_Philippine_Tourism)
+
+#Defining the different line plots and y-axis (time)
+
+fig <- plot_ly(data, x = ~Year, y = ~South_Korea, name = "South Korea", type = 'scatter', mode = 'lines+markers')%>%
+  add_trace(x = ~Year, y = ~USA, name = 'USA', mode = 'lines+markers')%>%
+  add_trace(x = ~Year, y = ~Japan, name = 'Japan', mode = 'lines+markers')%>%
+  add_trace(x = ~Year, y = ~China, name = 'China', mode = 'lines+markers')%>%
+  add_trace(x = ~Year, y = ~Taiwan, name = 'Taiwan', mode = 'lines+markers')%>%
+  add_trace(x = ~Year, y = ~Australia, name = 'Australia', mode = 'lines+markers')%>%
+  add_trace(x = ~Year, y = ~Singapore, name = 'Singapore', mode = 'lines+markers')%>%
+  add_trace(x = ~Year, y = ~Canada, name = 'Canada', mode = 'lines+markers')%>%
+  add_trace(x = ~Year, y = ~UK, name = 'UK', mode = 'lines+markers' )%>%
+  add_trace(x = ~Year, y = ~Malaysia, name = 'Malaysia', mode = 'lines+markers')%>%
+  layout(title = 'Annual Tourists in Philippines by Country',
+         legend=list(title=list(text='Country')),
+         xaxis = list(dtick = "M1", tickformat="%b<br>%Y"),
+         yaxis = list(title = "Number of Tourists"))
+options(warn = -1)
+fig <- fig %>%
+  layout(
+    xaxis = list(zerolinecolor = '#ffff',
+                 zerolinewidth = 2,
+                 gridcolor = 'ffff'),
+    yaxis = list(zerolinecolor = '#ffff',
+                 zerolinewidth = 0.5,
+                 gridcolor = 'ffff'),
+    plot_bgcolor='#e5ecf6')
+
+
+fig
+```
+
+### 2. How much do they typically spend? And what do they spend money on the most?
+  + **Top 3 Daily Expenditures**
+    1. Accommodation Services
+    2. Food and Beverage
+    3. Transportation
+
+  + **Additional Observations:**
+    + In the recent years (starting 2012), tourists seem to be more interested in spending more money in food and beverages than transportation
+  
+```{r, echo = FALSE, message = FALSE}
+library(plotly)
+library(tidyverse)
+library(readr)
+library(tidyquant)
+
+expenditures <- read_csv("Expenditures3.csv")
+
+fig2 <- plot_ly(expenditures, x = ~Year, y = ~Accommodation_Services, name = "Accommodation Services", type = "scatter", mode = "lines+markers")%>%
+  add_trace(y = ~Food_Beverage, name = 'Food and Beverage')%>%
+  add_trace(y = ~Transportation, name = 'Transportation')%>%
+  add_trace(y = ~Travel_agencies_and_Reservations, name = 'Travel Agencies and Reservations')%>%
+  add_trace(y = ~Entertainment_Recreation, name = 'Entertainment and Recreation')%>%
+  add_trace(y = ~Shopping, name = 'Shopping')%>%
+  add_trace(y = ~ Miscellaneous, name = "Misc") %>%
+  layout(title = 'Average Daily Inbound Expenditure',
+         legend=list(title=list(text='Consumption Product')),
+         xaxis = list(dtick = "1", tickformat="%b<br>%Y"),
+         yaxis = list(title = "Average Daily Expenses in Dollars"))
+options(warn = -1)
+fig2 <- fig2 %>%
+  layout(
+    xaxis = list(zerolinecolor = '#ffff',
+                 zerolinewidth = 2,
+                 gridcolor = 'ffff'),
+    yaxis = list(zerolinecolor = '#ffff',
+                 zerolinewidth = 2,
+                 gridcolor = 'ffff'),
+    plot_bgcolor='#e5ecf6')
+
+
+fig2
+```
+
+
+### **Suggestions based on data:**  
+Although we should mainly focus on having Filipino culture and elements to our resorts, we should consider adding multi-cultural elements to help accommodate our visitors.  For instance, we can be more hospitable by:  
+  1. Hiring receptionists who can speak one or multiple of the following languages: English, Korean, Chinese, Japanese  
+  2. Offering informative pamphlets over things to do, activities and stores nearby, etc. in the languages listed in bullet (1).  
+  3. Since food and beverages seem to be the top three consumption items, we can partner up with local restaurants or vendors (with food stands) that specialize in Filipino, Korean, Japanese, Chinese, and American food.  We can also offer a bar with popular alcoholic beverage from the top countries.
+  4. Uncles have experience in Uber/taxi services in Philippines.  We can employ family members and provide ready transportation for guests.
+
+## **Limitations and Things to Improve:**  
+
+The main limitation was time.  There were some major timeline shifts from my other classes that affected my timeline for this project.  Because I was limited on time, there were a couple of things I could have used to improve this project:  
+
+  * I would have used the extensive data from the [official Philippine tourism website](http://www.tourism.gov.ph/tourism_dem_sup_pub.aspx), which provides monthly data of tourists dating back to 2010, and additionally, provides data on more than 50 tourist nationalities.  
+    + This would have required scraping, which I wasn't sure I could get done on time  
+    + This would greatly improve our understanding, not only of how many of each nationalities are visiting, but also which season is the most popular to visit, etc.  
+  * In addition to the Average Daily Inboud Expenditure time series line graph, I would have wanted a drop-down menu displaying the bar graphs of the consumption products each year so user can take a closer look at the expenditure consumption of each individual years  
+
+  
+## **Extension of this Research: ** 
+
+* **How long do guests typically stay?**  
+  I could not find readily available data over average hotel stays in the Philippines.  This would have had to have been webscraped from a reservation from a website like Booking.com, which I wasn't confident I could accomplish in time.  
+  This is information which could help prevent under- or over-booking, helping us understand how much to charge per night to make the investment profitable.  
+  
+* **Competitions: how much is the average cost of hotels in the Philippines?**  
+  For the same reasons as above, I could not answer this question.  This question would help us gauge the reasonable prices and rates for the resort
+  
+* **How do Filipino residents compare and contribute to tourism?**
+  + We have to keep in mind that foreigners are not the only guests, but residents of the country also.
+  + If numbers are significant enough, we should research:
+    + Average income of Filipino residents
+    + Average amount of money they spend on vacation
+    
+* **When more data is available, investigate how the pandemic affected tourism, and whether Philippine tourism was able to recover after their crash in 2020**
+
+* **What's the most effective marketing strategy in this country?**
+  + Billboards? If so, we need to point out locations and main high ways that receive the most traffic.
+  + Social media? If so, what would be the main platform? Facebook? Twitter? Etc.
+  
+
+  
+
